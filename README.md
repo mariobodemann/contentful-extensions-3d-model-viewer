@@ -12,3 +12,6 @@
 
 Contentful, [the headless CMS](https://contentful.com), offers the ability to add a custom
 ui extension. This one will be a sample demonstrating, on how to use a 3d model in this CMS.
+
+For updating/creating the ui, please use the supplied [Makefile](Makefile). Also the 
+[contentful-extension-cli](https://github.com/contentful/contentful-extension-cli) is required.
