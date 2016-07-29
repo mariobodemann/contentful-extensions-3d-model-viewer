@@ -114,12 +114,12 @@ function loadObject(api, element, asset) {
             selected.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
         }
 
-        renderer.setClearColor(0x00FF00);
+        renderer.setClearColor(0x008000);
 
         selected = {'renderer':renderer};
 
-        console.log(api.field.getValue('en-US'));
+        console.log(api.field);
 
-        api.field.setValue(asset.sys.id);
+        api.field.setValue({"id": asset.sys.id});
     }
 }
