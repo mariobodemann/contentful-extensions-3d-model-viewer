@@ -1,3 +1,7 @@
+var container;
+container = document.createElement('div');
+document.body.appendChild(container);
+
 var cfExtension = window.contentfulExtension || window.contentfulWidget
 cfExtension.init(function (api) {
     console.log('Loaded')
@@ -9,7 +13,15 @@ cfExtension.init(function (api) {
             console.log(asset);
             var detail = asset.fields.file['en-US'];
 
-            if (detail.fileName.endsWith("obj")) {
+            if (detail.fileName.endsWith("obj") || true) {
+                var img = document.createElement('img');
+                img.src = detail.url;
+                img.width = 100;
+                img.height = 100;
+                img.alt = asset.fields.title['en-US']
+                img.style = 'display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
+
+                container.appendChild(img)
                 console.log(detail.url);
             }
         });
@@ -23,16 +35,11 @@ function initModelViewer() {
         Detector.addGetWebGLMessage();
     }
 
-    var container;
-
     var camera, controls, scene, renderer;
     var lighting, ambient, keyLight, fillLight, backLight;
 
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
-
-    container = document.createElement('div');
-    document.body.appendChild(container);
 
     /* Camera */
 
