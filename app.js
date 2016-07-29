@@ -70,7 +70,7 @@ function loadObject(element, modelUrl) {
     controls = new THREE.OrbitControls(camera, element);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
-    controls.enableZoom = false;
+    controls.enableZoom = true;
 
     /* Model */
     var objLoader = new THREE.OBJLoader();
