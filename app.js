@@ -11,7 +11,6 @@ cfExtension.init(function (api) {
     console.log('Loaded')
 
     api.space.getAssets().then(function (assets) {
-        console.log(assets);
 
         assets.items.forEach(asset => {
             var detail = asset.fields.file['en-US'];
@@ -66,10 +65,10 @@ function loadObject(element, modelUrl) {
     element.appendChild(renderer.domElement);
 
     /* Controls */
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls = new THREE.OrbitControls(camera, element);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
-    controls.enableZoom = true;
+    controls.enableZoom = false;
 
     /* Events */
     element.addEventListener('resize', onWindowResize, false);
@@ -81,12 +80,10 @@ function loadObject(element, modelUrl) {
     var file = path.pop();
     path = path.join('/') + '/';
 
-    console.log(file + "@" + path);
-
     objLoader.setPath(path);
     objLoader.load(file, function (object) {
         scene.add(object);
-        render();
+        animate();
     });
 
     function onWindowResize() {
@@ -120,7 +117,14 @@ function loadObject(element, modelUrl) {
     }
 
     function render() {
-        console.log('rendering')
+    console.log('renderer');
         renderer.render(scene, camera);
+    }
+
+    function animate() {
+    console.log('animation');
+        requestAnimationFrame(animate);
+        controls.update();
+        render();
     }
 }
