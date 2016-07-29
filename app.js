@@ -13,18 +13,20 @@ cfExtension.init(function (api) {
             console.log(asset);
             var detail = asset.fields.file['en-US'];
 
-            if (detail.fileName.endsWith("obj") || true) {
-                var img = document.createElement('img');
-                img.src = detail.url;
-                img.width = 100;
-                img.height = 100;
-                img.alt = asset.fields.title['en-US']
-                img.style = 'display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
+            if (detail.fileName.endsWith("obj")) {
+                var div = document.createElement('div');
+                div.src = detail.url;
+                div.width = 200;
+                div.height = 200;
+                div.textContent = detail.fileName
+                div.style = 'background: grey; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
-                container.appendChild(img)
+                container.appendChild(div)
                 console.log(detail.url);
             }
         });
+
+        api.window.updateHeight();
     });
     // load rendering
     //initModelViewer()
