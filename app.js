@@ -2,18 +2,18 @@ var cfExtension = window.contentfulExtension || window.contentfulWidget
 cfExtension.init(function (api) {
     console.log('Loaded')
 
-    var assets = api.space.getAssets();
-    console.log(assets);
+    api.space.getAssets().done(function (assets) {
+        console.log(assets);
 
-    for (var asset in assets.items) {
-        console.log(asset);
-        var detail = asset.fields.file.en-US;
+        for (var asset in assets.items) {
+            console.log(asset);
+            var detail = asset.fields.file.en-US;
 
-        if (detail.fileName.endsWith("obj")) {
-            console.log(detail.url);
+            if (detail.fileName.endsWith("obj")) {
+                console.log(detail.url);
+            }
         }
-    }
-
+    });
     // load rendering
     //initModelViewer()
 });
