@@ -2,6 +2,10 @@ var container;
 container = document.createElement('div');
 document.body.appendChild(container);
 
+if (!Detector.webgl) {
+    Detector.addGetWebGLMessage();
+}
+
 var cfExtension = window.contentfulExtension || window.contentfulWidget
 cfExtension.init(function (api) {
     console.log('Loaded')
@@ -21,6 +25,8 @@ cfExtension.init(function (api) {
                 div.textContent = detail.fileName
                 div.style = 'background: grey; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
+                loadObject(div, detail.url);
+
                 container.appendChild(div)
                 console.log(detail.url);
             }
@@ -28,28 +34,17 @@ cfExtension.init(function (api) {
 
         api.window.updateHeight();
     });
-    // load rendering
-    //initModelViewer()
 });
 
-function initModelViewer() {
-    if (!Detector.webgl) {
-        Detector.addGetWebGLMessage();
-    }
-
+function loadObject(element, modelUrl) {
     var camera, controls, scene, renderer;
     var lighting, ambient, keyLight, fillLight, backLight;
 
-    var windowHalfX = window.innerWidth / 2;
-    var windowHalfY = window.innerHeight / 2;
-
     /* Camera */
-
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    camera = new THREE.PerspectiveCamera(45, element.width / element.height, 1, 1000);
     camera.position.z = 3;
 
     /* Scene */
-
     scene = new THREE.Scene();
     lighting = false;
 
@@ -65,54 +60,43 @@ function initModelViewer() {
     backLight = new THREE.DirectionalLight(0xffffff, 1.0);
     backLight.position.set(100, 0, -100).normalize();
 
-    /* Model */
-    var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setBaseUrl('assets/');
-    mtlLoader.setPath('assets/');
-    mtlLoader.load('female-croupier-2013-03-26.mtl', function (materials) {
-        materials.preload();
-
-        materials.materials.default.map.magFilter = THREE.NearestFilter;
-        materials.materials.default.map.minFilter = THREE.LinearFilter;
-
-        var objLoader = new THREE.OBJLoader();
-        objLoader.setMaterials(materials);
-        objLoader.setPath('assets/');
-        objLoader.load('female-croupier-2013-03-26.obj', function (object) {
-            scene.add(object);
-            render();
-        });
-    });
-
     /* Renderer */
-
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(element.width, element.height);
     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
 
     container.appendChild(renderer.domElement);
 
     /* Controls */
-
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
-    controls.enableZoom = false;
+    controls.enableZoom = true;
 
     /* Events */
+    element.addEventListener('resize', onWindowResize, false);
+    element.addEventListener('keydown', onKeyboardEvent, false);
 
-    window.addEventListener('resize', onWindowResize, false);
-    window.addEventListener('keydown', onKeyboardEvent, false);
+    /* Model */
+    var objLoader = new THREE.OBJLoader();
+    var path = modelUrl.split('/');
+    var file = path.pop();
+    path = path.join('/');
+
+    console.log(file + "@" + path);
+
+    objLoader.setPath(path);
+    objLoader.load(file, function (object) {
+        scene.add(object);
+        render();
+    });
 
     function onWindowResize() {
-        windowHalfX = window.innerWidth / 2;
-        windowHalfY = window.innerHeight / 2;
-
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = element.innerWidth / element.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(element.innerWidth, element.innerHeight);
     }
 
     function onKeyboardEvent(e) {
@@ -134,16 +118,7 @@ function initModelViewer() {
         }
     }
 
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        render();
-    }
-
     function render() {
         renderer.render(scene, camera);
     }
 }
-
-
-
