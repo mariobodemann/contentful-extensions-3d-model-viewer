@@ -73,7 +73,7 @@ function loadObject(api, element, asset) {
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
 
-    element.onclick = selected;
+    element.onclick = selected.bind(this);
 
     /* Model */
     var objLoader = new THREE.OBJLoader();
@@ -110,12 +110,13 @@ function loadObject(api, element, asset) {
     function selected() {
         console.log('selected');
         if (selected) {
-            selected.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+            this.selected.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
         }
 
-        renderer.setClearColor(0x00FF00);
-        selected = {'renderer':renderer};
+        this.renderer.setClearColor(0x00FF00);
 
-        api.field.setValue(asset.sys.id);
+        selected = {'renderer':this.renderer};
+
+        this.api.field.setValue(this.asset.sys.id);
     }
 }
