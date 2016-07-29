@@ -118,6 +118,8 @@ function loadObject(api, element, asset) {
 
         selected = {'renderer':renderer};
 
+        console.log(api.field.getValue('en-US'));
+
         api.field.setValue(asset.sys.id);
     }
 }
