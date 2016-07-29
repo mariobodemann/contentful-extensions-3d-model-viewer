@@ -79,7 +79,14 @@ function loadObject(element, modelUrl) {
     objLoader.setPath(path);
     objLoader.load(file, function (object) {
         object.children.forEach(child => {
-            child.material = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.SmoothShading } )
+            var hue = Math.random() * 360;
+            hue = hue - hue % 1.0;
+            child.material = new THREE.MeshPhongMaterial( {
+                color: new THREE.Color("hsl(" + hue + ", 90%, 80%)"),
+                specular: 0x009900,
+                shininess: 30,
+                shading: THREE.SmoothShading}
+             )
         });
         scene.add(object);
         animate();
