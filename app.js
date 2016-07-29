@@ -7,7 +7,7 @@ cfExtension.init(function (api) {
 
         assets.items.forEach(asset => {
             console.log(asset);
-            var detail = asset.fields.file.en-US;
+            var detail = asset.fields.file['en-US'];
 
             if (detail.fileName.endsWith("obj")) {
                 console.log(detail.url);
