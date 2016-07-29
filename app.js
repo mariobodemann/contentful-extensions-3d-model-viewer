@@ -82,6 +82,7 @@ function loadObject(element, modelUrl) {
 
     objLoader.setPath(path);
     objLoader.load(file, function (object) {
+        object.setMaterial(new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, blending: THREE.AdditiveBlending } ));
         scene.add(object);
         animate();
     });
