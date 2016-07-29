@@ -82,7 +82,7 @@ function loadObject(element, modelUrl) {
     var objLoader = new THREE.OBJLoader();
     var path = modelUrl.split('/');
     var file = path.pop();
-    path = path.join('/');
+    path = path.join('/') + '/';
 
     console.log(file + "@" + path);
 
