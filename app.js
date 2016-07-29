@@ -5,14 +5,14 @@ cfExtension.init(function (api) {
     api.space.getAssets().then(function (assets) {
         console.log(assets);
 
-        for (var asset in assets.items) {
+        assets.items.forEach(asset => {
             console.log(asset);
             var detail = asset.fields.file.en-US;
 
             if (detail.fileName.endsWith("obj")) {
                 console.log(detail.url);
             }
-        }
+        });
     });
     // load rendering
     //initModelViewer()
