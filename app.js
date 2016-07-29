@@ -70,10 +70,6 @@ function loadObject(element, modelUrl) {
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
 
-    /* Events */
-    element.addEventListener('resize', onWindowResize, false);
-    element.addEventListener('keydown', onKeyboardEvent, false);
-
     /* Model */
     var objLoader = new THREE.OBJLoader();
     var path = modelUrl.split('/');
@@ -82,40 +78,10 @@ function loadObject(element, modelUrl) {
 
     objLoader.setPath(path);
     objLoader.load(file, function (object) {
-        object.setMaterial(new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, blending: THREE.AdditiveBlending } ));
+        console.log(object);
         scene.add(object);
         animate();
     });
-
-    function onWindowResize() {
-        console.log('Resized');
-
-        camera.aspect = element.innerWidth / element.innerHeight;
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(element.innerWidth, element.innerHeight);
-    }
-
-    function onKeyboardEvent(e) {
-        console.log('KeyboardEvent');
-
-        if (e.code === 'KeyL') {
-
-            lighting = !lighting;
-
-            if (lighting) {
-                ambient.intensity = 0.25;
-                scene.add(keyLight);
-                scene.add(fillLight);
-                scene.add(backLight);
-            } else {
-                ambient.intensity = 1.0;
-                scene.remove(keyLight);
-                scene.remove(fillLight);
-                scene.remove(backLight);
-            }
-        }
-    }
 
     function render() {
         renderer.render(scene, camera);
