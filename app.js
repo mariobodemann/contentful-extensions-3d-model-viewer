@@ -17,10 +17,8 @@ cfExtension.init(function (api) {
             if (detail.fileName.endsWith("obj")) {
                 var div = document.createElement('div');
                 div.src = detail.url;
-                div.width = 200;
-                div.height = 200;
-                div.textContent = detail.fileName
-                div.style = 'background: white; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
+                div.width = '100';
+                div.height = '100';
 
                 loadObject(div, detail.url);
 
@@ -82,7 +80,7 @@ function loadObject(element, modelUrl) {
             var hue = Math.random() * 360;
             hue = hue - hue % 1.0;
             child.material = new THREE.MeshPhongMaterial( {
-                color: new THREE.Color("hsl(" + hue + ", 90%, 50%)"),
+                color: new THREE.Color("hsl(" + hue + ", 90%, 25%)"),
                 specular: 0x009900,
                 shininess: 30,
                 wireframe: true,
