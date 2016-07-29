@@ -14,9 +14,7 @@ cfExtension.init(function (api) {
         console.log(assets);
 
         assets.items.forEach(asset => {
-            console.log(asset);
             var detail = asset.fields.file['en-US'];
-
             if (detail.fileName.endsWith("obj")) {
                 var div = document.createElement('div');
                 div.src = detail.url;
@@ -28,7 +26,6 @@ cfExtension.init(function (api) {
                 loadObject(div, detail.url);
 
                 container.appendChild(div)
-                console.log(detail.url);
             }
         });
 
@@ -66,7 +63,7 @@ function loadObject(element, modelUrl) {
     renderer.setSize(element.width, element.height);
     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
 
-    container.appendChild(renderer.domElement);
+    element.appendChild(renderer.domElement);
 
     /* Controls */
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -93,6 +90,8 @@ function loadObject(element, modelUrl) {
     });
 
     function onWindowResize() {
+        console.log('Resized');
+
         camera.aspect = element.innerWidth / element.innerHeight;
         camera.updateProjectionMatrix();
 
@@ -100,6 +99,8 @@ function loadObject(element, modelUrl) {
     }
 
     function onKeyboardEvent(e) {
+        console.log('KeyboardEvent');
+
         if (e.code === 'KeyL') {
 
             lighting = !lighting;
@@ -119,6 +120,7 @@ function loadObject(element, modelUrl) {
     }
 
     function render() {
+        console.log('rendering')
         renderer.render(scene, camera);
     }
 }
