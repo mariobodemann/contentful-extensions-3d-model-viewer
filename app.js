@@ -2,7 +2,7 @@ var cfExtension = window.contentfulExtension || window.contentfulWidget
 cfExtension.init(function (api) {
     console.log('Loaded')
 
-    api.space.getAssets().done(function (assets) {
+    api.space.getAssets().then(function (assets) {
         console.log(assets);
 
         for (var asset in assets.items) {
