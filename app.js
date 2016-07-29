@@ -6,6 +6,8 @@ if (!Detector.webgl) {
     Detector.addGetWebGLMessage();
 }
 
+var selected = null;
+
 var cfExtension = window.contentfulExtension || window.contentfulWidget
 cfExtension.init(function (api) {
     console.log('Loaded')
@@ -16,14 +18,13 @@ cfExtension.init(function (api) {
             var detail = asset.fields.file['en-US'];
             if (detail.fileName.endsWith("obj")) {
                 var div = document.createElement('div');
-                div.src = detail.url;
                 div.width = 200;
                 div.height = 200;
                 div.style = 'background: white; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
-                loadObject(div, detail.url);
+                loadObject(api, div, asset);
 
-                container.appendChild(div)
+                container.appendChild(div);
             }
         });
 
@@ -31,7 +32,7 @@ cfExtension.init(function (api) {
     });
 });
 
-function loadObject(element, modelUrl) {
+function loadObject(api, element, asset) {
     var camera, controls, scene, renderer;
     var lighting, ambient, keyLight, fillLight, backLight;
 
@@ -72,8 +73,11 @@ function loadObject(element, modelUrl) {
     controls.dampingFactor = 0.25;
     controls.enableZoom = true;
 
+    element.onclick = selected;
+
     /* Model */
     var objLoader = new THREE.OBJLoader();
+    var modelUrl = asset.fields.file['en-US'].url;
     var path = modelUrl.split('/');
     var file = path.pop();
     path = path.join('/') + '/';
@@ -101,5 +105,17 @@ function loadObject(element, modelUrl) {
         requestAnimationFrame(animate);
         controls.update();
         render();
+    }
+
+    function selected() {
+        console.log('selected');
+        if (selected) {
+            selected.renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+        }
+
+        renderer.setClearColor(0x00FF00);
+        selected = {'renderer':renderer};
+
+        api.field.setValue(asset.sys.id);
     }
 }
