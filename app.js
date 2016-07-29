@@ -117,12 +117,10 @@ function loadObject(element, modelUrl) {
     }
 
     function render() {
-    console.log('renderer');
         renderer.render(scene, camera);
     }
 
     function animate() {
-    console.log('animation');
         requestAnimationFrame(animate);
         controls.update();
         render();
