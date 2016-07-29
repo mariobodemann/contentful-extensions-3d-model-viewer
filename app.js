@@ -20,7 +20,7 @@ cfExtension.init(function (api) {
                 div.width = 200;
                 div.height = 200;
                 div.textContent = detail.fileName
-                div.style = 'background: grey; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
+                div.style = 'background: white; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
                 loadObject(div, detail.url);
 
@@ -60,7 +60,7 @@ function loadObject(element, modelUrl) {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(element.width, element.height);
-    renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
+    renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
 
     element.appendChild(renderer.domElement);
 
@@ -82,9 +82,10 @@ function loadObject(element, modelUrl) {
             var hue = Math.random() * 360;
             hue = hue - hue % 1.0;
             child.material = new THREE.MeshPhongMaterial( {
-                color: new THREE.Color("hsl(" + hue + ", 90%, 80%)"),
+                color: new THREE.Color("hsl(" + hue + ", 90%, 50%)"),
                 specular: 0x009900,
                 shininess: 30,
+                wireframe: true,
                 shading: THREE.SmoothShading}
              )
         });
