@@ -17,8 +17,9 @@ cfExtension.init(function (api) {
             if (detail.fileName.endsWith("obj")) {
                 var div = document.createElement('div');
                 div.src = detail.url;
-                div.width = '100';
-                div.height = '100';
+                div.width = 200;
+                div.height = 200;
+                div.style = 'background: white; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
                 loadObject(div, detail.url);
 
@@ -47,12 +48,15 @@ function loadObject(element, modelUrl) {
 
     keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
     keyLight.position.set(-100, 0, 100);
+    scene.add(keyLight);
 
     fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
     fillLight.position.set(100, 0, 100);
+    scene.add(fillLight);
 
     backLight = new THREE.DirectionalLight(0xffffff, 1.0);
     backLight.position.set(100, 0, -100).normalize();
+    scene.add(backLight);
 
     /* Renderer */
     renderer = new THREE.WebGLRenderer();
@@ -81,11 +85,9 @@ function loadObject(element, modelUrl) {
             hue = hue - hue % 1.0;
             child.material = new THREE.MeshPhongMaterial( {
                 color: new THREE.Color("hsl(" + hue + ", 90%, 25%)"),
-                specular: 0x009900,
-                shininess: 30,
-                wireframe: true,
-                shading: THREE.SmoothShading}
-             )
+                specular: new THREE.Color("hsl(" + (hue + 20) % 360+ ", 90%, 50%)"),
+                shading: THREE.SmoothShading
+            });
         });
         scene.add(object);
         animate();
