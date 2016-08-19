@@ -15,6 +15,7 @@ cfExtension.init(function (api) {
     api.space.getAssets().then(function (assets) {
 
         assets.items.forEach(asset => {
+            var isSelected = asset.sys.id == api.field.getValue().sys.id
             var detail = asset.fields.file['en-US'];
             if (detail.fileName.endsWith("obj")) {
                 var div = document.createElement('div');
@@ -22,7 +23,7 @@ cfExtension.init(function (api) {
                 div.height = 200;
                 div.style = 'background: white; padding:10px; display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;'
 
-                loadObject(api, div, asset);
+                loadObject(api, div, asset, isSelected);
 
                 container.appendChild(div);
             }
@@ -32,7 +33,7 @@ cfExtension.init(function (api) {
     });
 });
 
-function loadObject(api, element, asset) {
+function loadObject(api, element, asset, isSelected) {
     var camera, controls, scene, renderer;
     var lighting, ambient, keyLight, fillLight, backLight;
 
@@ -63,7 +64,14 @@ function loadObject(api, element, asset) {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(element.width, element.height);
-    renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+
+    if (isSelected) {
+        renderer.setClearColor(0x008000);
+        selected={'renderer':renderer}
+        console.log('selection found')
+    } else {
+        renderer.setClearColor(new THREE.Color("hsl(0, 0%, 100%)"));
+    }
 
     element.appendChild(renderer.domElement);
 
@@ -120,6 +128,6 @@ function loadObject(api, element, asset) {
 
         console.log(api.field);
 
-        api.field.setValue({"id": asset.sys.id});
+        api.field.setValue({'sys': {'id': asset.sys.id, 'type': 'Link', 'linkType': 'Asset'}});
     }
 }
