@@ -96,8 +96,8 @@ function loadObject(api, element, asset, isSelected) {
             var hue = 0;
             hue = hue - hue % 1.0;
             child.material = new THREE.MeshPhongMaterial( {
-                color: new THREE.Color("hsl(" + hue + ", 90%, 25%)"),
-                specular: new THREE.Color("hsl(" + (hue + 20) % 360+ ", 90%, 50%)"),
+                color: new THREE.Color("hsl(" + hue + ", 0%, 25%)"),
+                specular: new THREE.Color("hsl(" + (hue + 20) % 360+ ", 0%, 50%)"),
                 shading: THREE.SmoothShading
             });
         });
