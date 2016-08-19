@@ -93,7 +93,7 @@ function loadObject(api, element, asset, isSelected) {
     objLoader.setPath(path);
     objLoader.load(file, function (object) {
         object.children.forEach(child => {
-            var hue = Math.random() * 360;
+            var hue = 0;
             hue = hue - hue % 1.0;
             child.material = new THREE.MeshPhongMaterial( {
                 color: new THREE.Color("hsl(" + hue + ", 90%, 25%)"),
