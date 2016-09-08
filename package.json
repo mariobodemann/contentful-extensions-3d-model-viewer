@@ -1,0 +1,36 @@
+{
+  "name": "contentful-extensions-3d-model-viewer",
+  "version": "0.0.1",
+  "description": " Ui Extension for Viewing 3d models",
+  "main": "app.js",
+  "scripts": {
+    "start": "webpack-dev-server --host=0.0.0.0 --port=2909 --inline --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Khaledgarbaya/contentful-extensions-3d-model-viewer.git"
+  },
+  "keywords": [
+    "3d",
+    "contentdul",
+    "viewer",
+    "ui-extensions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Khaledgarbaya/contentful-extensions-3d-model-viewer/issues"
+  },
+  "homepage": "https://github.com/Khaledgarbaya/contentful-extensions-3d-model-viewer#readme",
+  "dependencies": {
+    "contentful-ui-extensions-sdk": "^2.0.1",
+    "three": "^0.79.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "contentful-extension-cli": "^2.0.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
