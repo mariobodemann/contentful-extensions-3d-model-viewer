@@ -3,7 +3,7 @@ import './OrbitControls'
 import './OBJLoader'
 import './MTLLoader'
 import Detector from './Detector'
-
+let contentfulExtension = require('contentful-ui-extensions-sdk')
 let container
 container = document.createElement('div')
 document.body.appendChild(container)
@@ -14,8 +14,7 @@ if (!Detector.webgl) {
 
 var selected = null
 
-var cfExtension = window.contentfulExtension || window.contentfulWidget
-cfExtension.init(function (api) {
+contentfulExtension.init(function (api) {
   console.log('Loaded')
 
   api.space.getAssets().then(function (assets) {
