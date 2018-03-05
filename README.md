@@ -9,7 +9,7 @@ This Contentful UI extension takes over asset selection for OBJ 3d model files. 
 Please install the [contentful-cli](https://github.com/contentful/contentful-cli#cloud-installation) and execute following commmand:
 
 ```
-contentful extension create --space-id $SPACE_ID --id modelviewer --name "3D Model Viewer" --field-types "Asset" --src https:/mariobodemann.github.io/contentful-extensions-3d-model-viewer/ 
+contentful extension create --space-id $SPACE_ID --id modelviewer --name "3D Model Viewer" --field-types "Asset" --src https://mariobodemann.github.io/contentful-extensions-3d-model-viewer/ 
 ```
 
 ## What is Contentful?
