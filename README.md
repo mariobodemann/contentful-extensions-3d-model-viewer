@@ -1,5 +1,7 @@
 # WebGL 3D Model Viewer Using three.js extension for Contentful
 
+<img width="400" src="assets/contentful 3d extension.png" />
+
 ## Specification
 
 * OBJ loader for loading a geometry format that is as old and widely supported as GIFs.
