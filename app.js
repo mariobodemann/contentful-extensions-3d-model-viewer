@@ -39,7 +39,7 @@ function loadObject(api, element, asset, isSelected) {
 
     /* Camera */
     camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 10);
-    camera.position.z = 2;
+    camera.position.z = 1.2;
 
     /* Scene */
     scene = new THREE.Scene();
