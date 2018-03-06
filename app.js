@@ -38,8 +38,8 @@ function loadObject(api, element, asset, isSelected) {
     var lighting, ambient, keyLight, fillLight, backLight;
 
     /* Camera */
-    camera = new THREE.PerspectiveCamera(45, element.width / element.height, 1, 1000);
-    camera.position.z = 3;
+    camera = new THREE.PerspectiveCamera(45, element.width / element.height, 0.1, 10);
+    camera.position.z = 2;
 
     /* Scene */
     scene = new THREE.Scene();
